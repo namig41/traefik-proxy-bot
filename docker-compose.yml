@@ -16,8 +16,8 @@ services:
       XUI_PANEL_PORT: ${XUI_PANEL_PORT}
       XUI_HOSTNAME: ${XUI_HOSTNAME}
       XUI_EMAIL: ${XUI_EMAIL}
-      TGTOKEN: ${TGTOKEN}
-      ADMINID: ${ADMINID}
+      TGTOKEN: ${TELEGRAM_API_TOKEN}
+      ADMINID: ${TELEGRAM_ADMIN_ID}
     volumes:
       - "$PWD/cert/:/root/cert/"
       - "$PWD/db/:/etc/x-ui/"
@@ -62,12 +62,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    environment:
-      XUI_LOGIN: ${XUI_USERNAME}
-      XUI_PASS: ${XUI_PASSWORD}
-      ADMIN_TELEGRAM_ID: ${ADMINID}
-      TELEGRAM_API_TOKEN: ${TGTOKEN}
-      XUI_HOSTNAME: ${XUI_HOSTNAME}
-      XUI_URL: "http://3x-ui:2053"
+    env_file:
+      - .env
     volumes:
       - "$PWD/db/:/db/"

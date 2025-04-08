@@ -3,6 +3,12 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Env file
+.env
+
+# Config files
+letsencrypt/*
+
 # C extensions
 *.so
 

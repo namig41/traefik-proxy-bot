@@ -1,8 +1,8 @@
-from typing import Optional, List, Dict
+from typing import List, Optional
 
-from src.data.repo.user import User as UserRepo
-from src.data.repo.clientconfig import ClientConfig as ClientRepo
-from src.logic.models.user import User as UserDTO
+from data.repo.clientconfig import ClientConfig as ClientRepo
+from data.repo.user import User as UserRepo
+from logic.models.user import User as UserDTO
 
 
 class User:
@@ -33,4 +33,3 @@ class User:
 
     def delete(self, user_id: str) -> bool:
         return self.user_repo.delete(user_id)
-

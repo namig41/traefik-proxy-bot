@@ -1,30 +1,30 @@
+import uuid
 from typing import Optional
 
 from pyxui import XUI
 from pyxui.errors import BadLogin, NotFound
-import uuid
 
-from src.infrastracture.config import config
-from src.infrastracture.logger import logger
+from infrastracture.logger import logger
+from settings import config
 
 
 class XUIClient:
-    def __init__(self):
-        self.__client: XUI = (XUI(
-            full_address=config.get_engine_url(),
-            panel='sanaei'
-        ))
-        if not self.__login():
-            logger.critical('xui login unsuccessful')
+    def __init__(self) -> None:
+        self.client: XUI = XUI(
+            full_address="http://localhost:2053",
+            panel="sanaei",
+            https=False,
+        )
+        if not self.login():
+            logger.critical("XUI login unsuccessful")
 
-        self.__default_inbound_id = 1
-        return
+        self.default_inbound_id: int = 1
 
     def get_server_info(self) -> dict:
-        return self.__client.get_inbound(self.__default_inbound_id)['obj']
+        return self.client.get_inbound(self.default_inbound_id)["obj"]
 
     def get_client(self, client_id: str) -> Optional[dict]:
-        res = self.__client.get_client(self.__default_inbound_id, client_id)
+        res = self.client.get_client(self.default_inbound_id, client_id)
 
         if res is NotFound:
             return None
@@ -34,32 +34,32 @@ class XUIClient:
     def create_client(self, prefix: str) -> str:
         client_uuid = str(uuid.uuid4())
 
-        client_id = prefix + '_' + client_uuid if prefix else client_uuid
+        client_id = prefix + "_" + client_uuid if prefix else client_uuid
 
-        self.__client.add_client(
-            self.__default_inbound_id,
+        self.client.add_client(
+            self.default_inbound_id,
             client_id,
-            client_uuid
+            client_uuid,
         )
 
         return client_uuid
 
     def delete_client(self, client_id: str) -> bool:
         try:
-            self.__client.delete_client(
-                self.__default_inbound_id,
-                client_id
+            self.client.delete_client(
+                self.default_inbound_id,
+                client_id,
             )
         except Exception:
             return False
 
         return True
 
-    def __login(self) -> bool:
+    def login(self) -> bool:
         try:
-            self.__client.login(
-                username=config.get_engine_username(),
-                password=config.get_engine_password(),
+            self.client.login(
+                username=config.XUI_USERNAME,
+                password=config.XUI_PASSWORD,
             )
         except BadLogin:
             return False

@@ -1,7 +1,7 @@
-from typing import Optional, List
+from typing import List, Optional
 
-from src.data.models.user import User as UserDTO
-from src.infrastracture.db import db
+from data.models.user import User as UserDTO
+from infrastracture.db import db
 
 
 class User:
@@ -11,33 +11,37 @@ class User:
         return
 
     def get_many(self, offset: int = 0, limit: int = 20) -> List[UserDTO]:
-        query = '''
+        query = """
         SELECT * FROM users OFFSET ? LIMIT ?
-        '''
+        """
 
-        res = self.__con.cursor().execute(
-            query,
-            (offset, limit)
-        ).fetchall()
+        res = (
+            self.__con.cursor()
+            .execute(
+                query,
+                (offset, limit),
+            )
+            .fetchall()
+        )
 
-        return [UserDTO(**{'id': e[0], 'limit': e[1]}) for e in res]
+        return [UserDTO(**{"id": e[0], "limit": e[1]}) for e in res]
 
     def get(self, user_id: str) -> Optional[UserDTO]:
-        query = '''
+        query = """
         SELECT * FROM users WHERE id = ?
-        '''
+        """
 
         res = self.__con.cursor().execute(query, (user_id,)).fetchone()
 
         if res is None:
             return None
 
-        return UserDTO(**{'id': res[0], 'limit': res[1]})
+        return UserDTO(**{"id": res[0], "limit": res[1]})
 
     def create(self, user_id: str, limit: int) -> None:
-        query = '''
+        query = """
         INSERT OR REPLACE INTO users VALUES (?, ?)
-        '''
+        """
 
         self.__con.cursor().execute(query, (user_id, limit))
 
@@ -45,9 +49,9 @@ class User:
         return
 
     def delete(self, user_id: str) -> bool:
-        query = '''
+        query = """
         DELETE FROM users WHERE id = ?
-        '''
+        """
 
         self.__con.cursor().execute(query, (user_id,))
 
@@ -56,12 +60,12 @@ class User:
 
     def __create_user_table(self):
         self.__con.execute(
-            '''
+            """
             CREATE TABLE IF NOT EXISTS users (
-               ID        TEXT PRIMARY KEY NOT NULL, 
+               ID        TEXT PRIMARY KEY NOT NULL,
                CFG_LIMIT INT              NOT NULL
                );
-               '''
+               """,
         )
 
         self.__con.commit()

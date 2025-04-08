@@ -1,1 +1,1 @@
-from src.infrastracture.db.sqlite import sqlite_con as db
+from infrastracture.db.sqlite import sqlite_con as db

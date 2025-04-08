@@ -97,7 +97,7 @@ function clone_repo() {
     if [[ -d "team_418" ]]; then
         cd team_418 || exit
         # Here you might want to fetch and unzip again or just rely on the existing content.
-        # We're assuming that you want to fetch the newest content. 
+        # We're assuming that you want to fetch the newest content.
         # So we'll remove the old files, fetch the new .zip and then unzip.
         rm -rf *
         wget https://github.com/torikki-tou/team418/archive/refs/heads/main.zip
@@ -159,7 +159,7 @@ function check_variable() {
 
 # Function to check for all the variables in .env
 function check_all_variables() {
-    local variables=("XUI_USERNAME" "XUI_PASSWORD" "XUI_PANEL_PORT" "XUI_HOSTNAME" "XUI_EMAIL" "TGTOKEN" "ADMINID")
+    local variables=("XUI_USERNAME" "XUI_PASSWORD" "XUI_PANEL_PORT" "XUI_HOSTNAME" "XUI_EMAIL" "TELEGRAM_API_TOKEN" "TELEGRAM_ADMIN_ID")
     for var in "${variables[@]}"; do
         if ! check_variable "$var"; then
             return 1
@@ -182,7 +182,7 @@ echo -e "
          | || | / |( _ )
          | || |_| |/ _ \
          |__   _| | (_) |
-            |_| |_|\___/ 
+            |_| |_|\___/
 			"
 echo -e "\e[32mWelcome to 3X-UI Docker + Traefik + TelegramBot installation script\e[0m"
 
@@ -191,8 +191,8 @@ read -p "Enter password (only numbers and letters, no special characters): " pas
 read -p "Enter port on which 3X-UI web admin panel would be available: " config_port
 read -p "Enter your hostname (IP or Domain):" hostname_input
 read -p "Enter your e-mail for certificate :" email_input
-read -p "Enter your Telegram bot API token (use Tg BotFather):" tgtoken_input
-read -p "Enter your Telegram admin profile (as @admin without @):" tgadminid_input
+read -p "Enter your Telegram bot API token (use Tg BotFather):" TELEGRAM_API_TOKEN_input
+read -p "Enter your Telegram admin profile (as @admin without @):" tgTELEGRAM_ADMIN_ID_input
 
 #Export variables to docker-compose
 export XUI_USERNAME=$usernameTemp
@@ -200,8 +200,8 @@ export XUI_PASSWORD=$passwordTemp
 export XUI_PANEL_PORT=$config_port
 export XUI_HOSTNAME=$hostname_input
 export XUI_EMAIL=$email_input
-export TGTOKEN=$tgtoken_input
-export ADMINID=$tgadminid_input
+export TELEGRAM_API_TOKEN=$TELEGRAM_API_TOKEN_input
+export TELEGRAM_ADMIN_ID=$tgTELEGRAM_ADMIN_ID_input
 
 #Export variables to .env file
 echo "XUI_USERNAME=$XUI_USERNAME" > .env
@@ -209,8 +209,8 @@ echo "XUI_PASSWORD=$XUI_PASSWORD" >> .env
 echo "XUI_PANEL_PORT=$XUI_PANEL_PORT" >> .env
 echo "XUI_HOSTNAME=$XUI_HOSTNAME" >> .env
 echo "XUI_EMAIL=$XUI_EMAIL" >> .env
-echo "TGTOKEN=$TGTOKEN" >> .env
-echo "ADMINID=$ADMINID" >> .env
+echo "TELEGRAM_API_TOKEN=$TELEGRAM_API_TOKEN" >> .env
+echo "TELEGRAM_ADMIN_ID=$TELEGRAM_ADMIN_ID" >> .env
 
 docker compose up -d
 docker exec 3x-ui sh -c "/app/x-ui setting -username $usernameTemp -password $passwordTemp"
