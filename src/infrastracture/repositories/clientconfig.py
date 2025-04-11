@@ -1,14 +1,16 @@
-from typing import List, Optional
+from typing import (
+    List,
+    Optional,
+)
 
-from data.models.clientconfig import ClientConfig as ClientDTO
-from infrastracture.db import db
+from domain.entity.clientconfig import ClientConfig as ClientDTO
+from infrastracture.database import db
 
 
-class ClientConfig:
+class ClientConfigRepository:
     def __init__(self):
         self.__con = db.get_connection()
         self.__create_clients_table()
-        return
 
     def get_by_user(
         self,

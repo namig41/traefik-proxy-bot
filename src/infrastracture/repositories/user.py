@@ -1,7 +1,10 @@
-from typing import List, Optional
+from typing import (
+    List,
+    Optional,
+)
 
-from data.models.user import User as UserDTO
-from infrastracture.db import db
+from domain.entity.user import User as UserDTO
+from infrastracture.database import db
 
 
 class User:

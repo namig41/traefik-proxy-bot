@@ -1,1 +1,1 @@
-from infrastracture.logger.std import std_logger as logger
+from infrastracture.logger.logger import logger as logger

@@ -3,7 +3,7 @@ import sqlite3
 from settings import config
 
 
-class SQLiteCon:
+class SQLiteConnection:
     def __init__(self):
         self.__connection = sqlite3.connect(config.SQLITE_DB_PATH)
 
@@ -11,4 +11,4 @@ class SQLiteCon:
         return self.__connection
 
 
-sqlite_con = SQLiteCon()
+sqlite_con: SQLiteConnection = SQLiteConnection()

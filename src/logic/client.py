@@ -1,10 +1,9 @@
 import json
 
-from pyxui.config_gen import config_generator
-
-from data.engine.xui import XUIClient
-from data.repo.clientconfig import ClientConfig as ClientRepo
+from domain.engine.xui import XUIClient
+from domain.repo.clientconfig import ClientConfig as ClientRepo
 from logic.models.client import Client as ClientDTO
+from pyxui.config_gen import config_generator
 from settings import config
 
 

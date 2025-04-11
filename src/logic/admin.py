@@ -1,4 +1,4 @@
-from data.repo.admin import Admin as AdminRepo
+from infrastracture.repositories.admin import AdminRepository as AdminRepo
 
 
 class Admin:

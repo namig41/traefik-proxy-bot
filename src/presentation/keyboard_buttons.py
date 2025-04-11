@@ -1,9 +1,35 @@
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import (
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+)
+
+
+main_menu = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [InlineKeyboardButton(text="Пробный период (3 дня) 🎁", callback_data="trial")],
+        [
+            InlineKeyboardButton(text="Подписка 🚀", callback_data="subscribe"),
+            InlineKeyboardButton(text="Кабинет 👤", callback_data="account"),
+        ],
+        [
+            InlineKeyboardButton(text="Цены 💰", callback_data="prices"),
+            InlineKeyboardButton(text="Пригласить 🔗", callback_data="invite"),
+        ],
+        [InlineKeyboardButton(text="О сервисе ℹ️", callback_data="about")],
+        [
+            InlineKeyboardButton(
+                text="Служба поддержки 💬", url="https://t.me/support_link",
+            ),
+        ],  # замените ссылку
+    ],
+)
 
 admin_menu = [
     [
-        InlineKeyboardButton(text="➕ Добавить юзера", callback_data="add_client"),
-        InlineKeyboardButton(text="❌ Удалить юзера", callback_data="delete_client"),
+        InlineKeyboardButton(
+            text="➕ Добавить пользователя", callback_data="add_client",
+        ),
+        InlineKeyboardButton(text="❌ Удалить удалить", callback_data="delete_client"),
     ],
 ]
 

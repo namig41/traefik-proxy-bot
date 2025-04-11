@@ -1,7 +1,10 @@
-from typing import List, Optional
+from typing import (
+    List,
+    Optional,
+)
 
-from data.repo.clientconfig import ClientConfig as ClientRepo
-from data.repo.user import User as UserRepo
+from domain.repo.clientconfig import ClientConfig as ClientRepo
+from domain.repo.user import User as UserRepo
 from logic.models.user import User as UserDTO
 
 

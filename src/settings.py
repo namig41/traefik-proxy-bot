@@ -16,5 +16,7 @@ class Settings(BaseSettings):
 
     SQLITE_DB_PATH: str
 
+    LOG_PATH_DIR: str
+
 
 config = Settings()
